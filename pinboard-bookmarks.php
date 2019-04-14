@@ -12,4 +12,28 @@
  * @package         Pinboard_Bookmarks
  */
 
-// Your code starts here.
+namespace PinboardBookmarks;
+
+/**
+ * Pinboard Bookmarks class
+ */
+class PinboardBookmarks {
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		add_action( 'init', [ $this, 'register_post_types' ] );
+	}
+
+	/**
+	 * Registers post types
+	 *
+	 * @return void
+	 */
+	public function register_post_types() {
+		require_once 'post-types/pinboard-bookmark.php';
+	}
+}
+
+$pbbm_instance = new PinboardBookmarks();
