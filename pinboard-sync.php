@@ -18,6 +18,7 @@ require_once 'post-types/pinboard-bookmark.php';
 require_once 'class-pinboard-sync-options.php';
 require_once 'class-pinboard-sync-admin.php';
 require_once 'class-pinboard-api.php';
+require_once 'class-pinboard-sync-core.php';
 require_once 'vendor/autoload.php';
 
 /**
