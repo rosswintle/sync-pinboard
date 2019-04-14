@@ -20,7 +20,7 @@ require_once 'post-types/pinboard-bookmark.php';
 /**
  * Pinboard Sync class
  */
-class PinboardSync {
+class Pinboard_Sync {
 
 	/**
 	 * Constructor
@@ -31,4 +31,4 @@ class PinboardSync {
 
 }
 
-$pbsync_instance = new PinboardSync();
+$pbsync_instance = new Pinboard_Sync();
