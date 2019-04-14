@@ -16,6 +16,7 @@ namespace PinboardSync;
 
 require_once 'post-types/pinboard-bookmark.php';
 require_once 'class-pinboard-sync-options.php';
+require_once 'class-pinboard-sync-admin.php';
 require_once 'class-pinboard-api.php';
 require_once 'vendor/autoload.php';
 
@@ -28,7 +29,17 @@ class Pinboard_Sync {
 	 * Constructor
 	 */
 	public function __construct() {
-		// add_action( 'init', [ $this, 'register_post_types' ] );
+		// Initial hooks.
+		add_action( 'admin_menu', [ $this, 'admin_menu_hooks' ] );
+	}
+
+	/**
+	 * Run any admin menu hook actions
+	 *
+	 * @return void
+	 */
+	public function admin_menu_hooks() {
+		new Pinboard_Sync_Admin();
 	}
 
 }
