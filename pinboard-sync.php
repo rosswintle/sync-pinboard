@@ -14,6 +14,9 @@
 
 namespace PinboardSync;
 
+require_once 'post-types/pinboard-bookmark.php';
+
+
 /**
  * Pinboard Sync class
  */
@@ -23,17 +26,9 @@ class PinboardSync {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_post_types' ] );
+		// add_action( 'init', [ $this, 'register_post_types' ] );
 	}
 
-	/**
-	 * Registers post types
-	 *
-	 * @return void
-	 */
-	public function register_post_types() {
-		require_once 'post-types/pinboard-bookmark.php';
-	}
 }
 
 $pbsync_instance = new PinboardSync();
