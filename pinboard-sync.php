@@ -15,6 +15,8 @@
 namespace PinboardSync;
 
 require_once 'post-types/pinboard-bookmark.php';
+require_once 'post-types/class-pinboard-bookmark.php';
+require_once 'taxonomies/pinboard-tag.php';
 require_once 'class-pinboard-sync-options.php';
 require_once 'class-pinboard-sync-admin.php';
 require_once 'class-pinboard-api.php';

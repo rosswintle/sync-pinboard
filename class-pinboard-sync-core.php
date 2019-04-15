@@ -12,9 +12,6 @@ use PinboardSync\Pinboard_API;
  */
 class Pinboard_Sync_Core {
 
-	// Time of last "all" method call - this can only be called every five minutes
-	//protected $last_all_call = null;
-
 	// Time of last "recent" method call - this can only be called every minute
 	//protected $last_recent_call = null;
 
@@ -39,22 +36,49 @@ class Pinboard_Sync_Core {
 
 		$last_update_time = $last_update_data->update_time;
 
-		// Compare last update time to last sync to see if anything is new
-		if (strtotime($last_update_time) < $this->last_sync) {
-			//echo "Nothing to sync";
+		// Compare last update time to last sync to see if anything is new.
+		if ( strtotime( $last_update_time ) < $this->last_sync ) {
+			echo 'Nothing new to sync';
 			return;
 		}
 
-		// Can't make API calls less than 3 seconds apart
-		sleep(4);
+		// Can't make API calls less than 3 seconds apart.
+		sleep( 4 );
 
-		$new_pins = $api->call( 'posts/all', [ 'fromdt' => date( 'Y-m-d\TH:i:s\Z', $this->last_sync ) ] );
+		$new_pins = $api->posts_all( [ 'fromdt' => date( 'Y-m-d\TH:i:s\Z', $this->last_sync ) ] );
 
-		// Loop through pins creating posts for them
+		if ( ! is_array( $new_pins ) ) {
+			return;
+		}
+
+		// Loop through pins creating posts for them.
 		foreach ( $new_pins as $pin ) {
 
+			$post_data = [
+				'post_type'    => 'pinboard-bookmark',
+				'post_date'    => date( 'Y-m-d H:i:s', strtotime( $pin->time ) ),
+				'post_title'   => $pin->description,
+				'post_content' => $pin->extended,
+				'post_status'  => 'yes' === $pin->shared ? 'publish' : 'private',
+				'meta_input'   => [
+					'hash'     => $pin->hash,
+					'url'      => $pin->href,
+				],
+			];
+
+			$existing_pin = Pinboard_Bookmark::with_hash( $pin->hash );
+			if ( $existing_pin ) {
+				$post_data['ID'] = $existing_pin->ID;
+			}
+
+			$result = wp_insert_post( $post_data );
+
+			if ( $result > 0 ) {
+				$terms = explode( ' ', $pin->tags );
+				wp_set_post_terms( $result, $terms, 'pinboard-tag' );
+			}
+
 		}
-		var_dump($new_pins);
 
 		// Update last sync time
 		$this->last_sync = time();

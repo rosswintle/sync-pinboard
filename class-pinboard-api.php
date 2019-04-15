@@ -51,4 +51,18 @@ class Pinboard_API {
 		return $bodyData;
 	}
 
+	public function posts_all( $options ) {
+		// We use a timestamp in a transient to suspend calls for the next 5 minutes
+		// as this API method can only be called every 5 minutes
+		$suspended = get_transient( 'pinboard-posts-all-suspended' );
+		if ( false !== $suspended ) {
+			echo "Slow down!";
+			return null;
+		}
+
+		set_transient( 'pinboard-posts-all-suspended', time(), 5 * 60 );
+
+		return $this->call( 'posts/all', $options );
+	}
+
 }
