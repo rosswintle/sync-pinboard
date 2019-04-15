@@ -22,7 +22,7 @@ class Pinboard_Sync_Core {
 	protected $last_sync = null;
 
 	public function __construct() {
-		$stored_last_sync = get_option( 'pinboard_sync_last_sync' );
+		$stored_last_sync = get_option( 'pinboard-sync-last-sync' );
 
 		$this->last_sync = ( false !== $stored_last_sync ) ? $stored_last_sync : time();
 	}
@@ -40,11 +40,26 @@ class Pinboard_Sync_Core {
 		$last_update_time = $last_update_data->update_time;
 
 		// Compare last update time to last sync to see if anything is new
-		if (strtotime($last_update_time) > $this->last_sync) {
-			echo "Things to sync";
-		} else {
-			echo "Nothing to sync";
+		if (strtotime($last_update_time) < $this->last_sync) {
+			//echo "Nothing to sync";
+			return;
 		}
+
+		// Can't make API calls less than 3 seconds apart
+		sleep(4);
+
+		$new_pins = $api->call( 'posts/all', [ 'fromdt' => date( 'Y-m-d\TH:i:s\Z', $this->last_sync ) ] );
+
+		// Loop through pins creating posts for them
+		foreach ( $new_pins as $pin ) {
+
+		}
+		var_dump($new_pins);
+
+		// Update last sync time
+		$this->last_sync = time();
+		update_option( 'pinboard-sync-last-sync',  $this->last_sync );
+
 	}
 
 }
