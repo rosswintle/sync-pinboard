@@ -6,6 +6,7 @@
 namespace PinboardSync;
 
 use PinboardSync\Pinboard_API;
+use PinboardSync\Pinboard_Sync_Options;
 
 /**
  * Core class for syncing
@@ -51,6 +52,9 @@ class Pinboard_Sync_Core {
 			return;
 		}
 
+		// Get the author ID to use.
+		$author_id = Pinboard_Sync_Options::get_pin_author();
+
 		// Loop through pins creating posts for them.
 		foreach ( $new_pins as $pin ) {
 
@@ -64,6 +68,7 @@ class Pinboard_Sync_Core {
 					'hash'     => $pin->hash,
 					'url'      => $pin->href,
 				],
+				'post_author'  => $author_id,
 			];
 
 			$existing_pin = Pinboard_Bookmark::with_hash( $pin->hash );
