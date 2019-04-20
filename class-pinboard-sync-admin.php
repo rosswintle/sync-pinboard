@@ -28,7 +28,8 @@ class Pinboard_Sync_Admin {
 
 		$this->handle_submission();
 
-		$api_key = Pinboard_Sync_Options::get_api_key();
+		$api_key    = Pinboard_Sync_Options::get_api_key();
+		$pin_author = Pinboard_Sync_Options::get_pin_author();
 
 		?>
 			<h1>Pinboard Sync Settings</h1>
@@ -37,6 +38,16 @@ class Pinboard_Sync_Admin {
 				<div class="form-group">
 					<label for="api-key">Pinboard API Key</label>
 					<input type="text" name="api-key" id="api-key" value="<?php echo $api_key ? esc_attr( $api_key ) : ''; ?>">
+				</div>
+				<div class="form-group">
+					<label for="pin-author">Sync'ed pin author</label>
+					<select name="pin-author" id="pin-author">
+						<?php foreach (get_users() as $user) : ?>
+							<option value="<?php echo esc_attr($user->ID); ?>" <?php selected($pin_author, $user->ID); ?>>
+								<?php echo esc_html($user->display_name); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
 				</div>
 				<div>
 					<input type="submit" value="Update options">
@@ -59,6 +70,10 @@ class Pinboard_Sync_Admin {
 
 		if ( isset( $_POST['api-key'] ) ) {
 			Pinboard_Sync_Options::set_api_key( $_POST['api-key'] );
+		}
+
+		if ( isset( $_POST['pin-author'] ) ) {
+			Pinboard_Sync_Options::set_pin_author( $_POST['pin-author'] );
 		}
 	}
 

@@ -17,4 +17,12 @@ class Pinboard_Sync_Options {
 		return update_option( 'pinboard-sync-api-key', $value );
 	}
 
+	public static function get_pin_author() {
+		return get_option( 'pinboard-sync-author' );
+	}
+
+	public static function set_pin_author( $value ) {
+		return update_option( 'pinboard-sync-author', $value );
+	}
+
 }
