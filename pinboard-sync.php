@@ -19,6 +19,7 @@ require_once 'post-types/class-pinboard-bookmark.php';
 require_once 'taxonomies/pinboard-tag.php';
 require_once 'class-pinboard-sync-options.php';
 require_once 'class-pinboard-sync-admin.php';
+require_once 'class-pinboard-sync-meta-boxes.php';
 require_once 'class-pinboard-api.php';
 require_once 'class-pinboard-sync-core.php';
 require_once 'vendor/autoload.php';
@@ -34,6 +35,7 @@ class Pinboard_Sync {
 	public function __construct() {
 		// Initial hooks.
 		add_action( 'admin_menu', [ $this, 'admin_menu_hooks' ] );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_hooks' ] );
 	}
 
 	/**
@@ -43,6 +45,15 @@ class Pinboard_Sync {
 	 */
 	public function admin_menu_hooks() {
 		new Pinboard_Sync_Admin();
+	}
+
+	/**
+	 * Run any add_meta_box hook actions
+	 *
+	 * @return void
+	 */
+	public function add_meta_box_hooks() {
+		new Pinboard_Sync_Meta_Boxes();
 	}
 
 }
