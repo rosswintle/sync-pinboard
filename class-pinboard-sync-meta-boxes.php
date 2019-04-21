@@ -5,9 +5,15 @@ namespace PinboardSync;
 class Pinboard_Sync_Meta_Boxes {
 
 	public function __construct() {
-		add_meta_box( 'pinboard-sync-details', 'Pin details', [ $this, 'meta_box' ], 'pinboard-bookmark', 'normal', 'default' );
+
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+
 		/* Save post meta on the 'save_post' hook. */
 		add_action( 'save_post', [ $this, 'save' ], 10, 2 );
+	}
+
+	public function add_meta_boxes() {
+		add_meta_box( 'pinboard-sync-details', 'Pin details', [ $this, 'meta_box' ], 'pinboard-bookmark', 'normal', 'default' );
 	}
 
 	public function meta_box( $post ) {
@@ -31,13 +37,18 @@ class Pinboard_Sync_Meta_Boxes {
 		/* Get the post type object. */
 		$post_type = get_post_type_object( $post->post_type );
 
+	    // If this isn't a 'pinboard-bookmark' post, don't update it.
+    	if ( 'pinboard-bookmark' != $post_type->name ) {
+    		return;
+    	}
+
 		/* Check if the current user has permission to edit the post. */
 		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
 		}
 
 		/* Get the posted data and sanitize it for use as an HTML class. */
-		$new_meta_value = ( isset( $_POST['pinboard-sync-url'] ) ? esc_raw_url( $_POST['pinboard-sync-url'] ) : '' );
+		$new_meta_value = ( isset( $_POST['pinboard-sync-url'] ) ? esc_url_raw( $_POST['pinboard-sync-url'] ) : '' );
 
 		if ( empty( $new_meta_value ) ) {
 			delete_post_meta( $post_id, 'url' );

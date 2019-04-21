@@ -37,7 +37,6 @@ class Pinboard_Sync {
 		// Initial hooks.
 		add_action( 'init', [ $this, 'init_hooks' ] );
 		add_action( 'admin_menu', [ $this, 'admin_menu_hooks' ] );
-		add_action( 'add_meta_boxes', [ $this, 'add_meta_box_hooks' ] );
 
 		$this->register_deactivation_hook();
 	}
@@ -49,6 +48,7 @@ class Pinboard_Sync {
 	 */
 	public function init_hooks() {
 		new Pinboard_Sync_Cron();
+		new Pinboard_Sync_Meta_Boxes();
 	}
 
 	/**
@@ -58,15 +58,6 @@ class Pinboard_Sync {
 	 */
 	public function admin_menu_hooks() {
 		new Pinboard_Sync_Admin();
-	}
-
-	/**
-	 * Run any add_meta_box hook actions
-	 *
-	 * @return void
-	 */
-	public function add_meta_box_hooks() {
-		new Pinboard_Sync_Meta_Boxes();
 	}
 
 	/**
