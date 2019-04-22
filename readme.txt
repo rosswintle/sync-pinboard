@@ -11,8 +11,11 @@ Copies bookmarks from pinboard.in into a custom post type.
 
 == Description ==
 
-This plugin copies bookmarks from pinboard.in into a custom post type and the Pinboard tags into a custom
-taxonomy. It:
+This plugin copies bookmarks from [pinboard.in](https://pinboard.in/) into a custom post type and the Pinboard tags into a custom taxonomy.
+
+*Note:* This is not an official Pinboard plugin. If you have any problems please direct them to the WordPress support forums for this plugin.
+
+This plugin:
 
 * runs automatically using either wp-cron or manually using [wp-cli](https://wp-cli.org/)
 * uses the official Pinboard API (you will need your API key)

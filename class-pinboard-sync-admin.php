@@ -35,6 +35,13 @@ class Pinboard_Sync_Admin {
 
 		?>
 			<h1>Pinboard Sync Settings</h1>
+
+			<hr>
+
+			<p><strong>Please note:</strong> This is not an official Pinboard plugin. If you have any problems please direct them to the WordPress support forums for this plugin.</p>
+
+			<hr>
+
 			<form method="POST">
 				<?php wp_nonce_field( 'pinboard-sync-settings' ); ?>
 				<table class="form-table">
