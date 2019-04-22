@@ -25,4 +25,12 @@ class Pinboard_Sync_Options {
 		return update_option( 'pinboard-sync-author', $value );
 	}
 
+	public static function get_pin_sync_status() {
+		return (int)get_option( 'pinboard-sync-status' );
+	}
+
+	public static function set_pin_sync_status( $value ) {
+		return update_option( 'pinboard-sync-status', $value );
+	}
+
 }

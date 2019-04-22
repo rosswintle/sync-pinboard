@@ -3,6 +3,7 @@
 namespace PinboardSync;
 
 use PinboardSync\Pinboard_Sync_Core;
+use PinboardSync\Pinboard_Sync_Options;
 
 class Pinboard_Sync_Cron {
 
@@ -35,8 +36,18 @@ class Pinboard_Sync_Cron {
 	}
 
     public function sync() {
+    	if (0 == Pinboard_Sync_Options::get_pin_sync_status()) {
+    		return;
+    	}
+
     	$core = new Pinboard_Sync_Core();
     	$core->sync();
+    }
+
+    public function next_sync_time() {
+    	$timestamp = wp_next_scheduled( $this->hook_name );
+    	// There MUST be a WP function to format a time and take into account the offset, but I can't find it.
+    	return date_i18n('H:i:s', $timestamp + (get_option('gmt_offset') * 60 * 60));
     }
 
 }
