@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:     Pinboard Sync
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     Fetch bookmarks from Pinboard
+ * Plugin URI:      https://rosswintle.uk
+ * Description:     Fetch bookmarks from Pinboard into a custom post type and custom taxonomy
  * Author:          Ross Wintle
  * Author URI:      https://rosswintle.uk
  * Text Domain:     pinboard-sync
