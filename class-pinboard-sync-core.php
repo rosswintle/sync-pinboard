@@ -55,15 +55,12 @@ class Pinboard_Sync_Core {
 		// Get the author ID to use.
 		$author_id = Pinboard_Sync_Options::get_pin_author();
 
-		// Get the time offset
-		$time_offset = get_option('gmt_offset') * 60 * 60;
-
 		// Loop through pins creating posts for them.
 		foreach ( $new_pins as $pin ) {
 
 			$post_data = [
 				'post_type'    => 'pinboard-bookmark',
-				'post_date'    => date( 'Y-m-d H:i:s', strtotime( $pin->time ) + $time_offset ),
+				'post_date'    => date( 'Y-m-d H:i:s', Pinboard_Sync::make_time_local( strtotime($pin->time) ) ),
 				'post_title'   => $pin->description,
 				'post_content' => $pin->extended,
 				'post_status'  => 'yes' === $pin->shared ? 'publish' : 'private',

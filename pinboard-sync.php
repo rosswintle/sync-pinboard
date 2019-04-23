@@ -20,6 +20,7 @@ require_once 'class-pinboard-sync-options.php';
 require_once 'class-pinboard-sync-admin.php';
 require_once 'class-pinboard-sync-meta-boxes.php';
 require_once 'class-pinboard-sync-cron.php';
+require_once 'class-pinboard-sync-wp-cli.php';
 require_once 'class-pinboard-api.php';
 require_once 'class-pinboard-sync-core.php';
 require_once 'vendor/autoload.php';
@@ -48,6 +49,7 @@ class Pinboard_Sync {
 	public function init_hooks() {
 		new Pinboard_Sync_Cron();
 		new Pinboard_Sync_Meta_Boxes();
+		new Pinboard_Sync_WPCLI();
 	}
 
 	/**
@@ -76,6 +78,14 @@ class Pinboard_Sync {
 		do_action('pinboard_sync_deactivate');
 	}
 
+	/**
+	 * This takes a timestamp and turns it into local time using the gmt_offset options
+	 */
+	public static function make_time_local( $timestamp ) {
+		echo "Making local time from " . $timestamp;
+		$offset_secs = ((int)get_option('gmt_offset')) * 60 * 60;
+		return $timestamp + $offset_secs;
+	}
 
 }
 
