@@ -16,13 +16,13 @@ namespace SyncPinboard;
 require_once 'post-types/pinboard-bookmark.php';
 require_once 'post-types/class-pinboard-bookmark.php';
 require_once 'taxonomies/pinboard-tag.php';
-require_once 'class-pinboard-sync-options.php';
-require_once 'class-pinboard-sync-admin.php';
-require_once 'class-pinboard-sync-meta-boxes.php';
-require_once 'class-pinboard-sync-cron.php';
-require_once 'class-pinboard-sync-wp-cli.php';
+require_once 'class-sync-pinboard-options.php';
+require_once 'class-sync-pinboard-admin.php';
+require_once 'class-sync-pinboard-meta-boxes.php';
+require_once 'class-sync-pinboard-cron.php';
+require_once 'class-sync-pinboard-wp-cli.php';
 require_once 'class-pinboard-api.php';
-require_once 'class-pinboard-sync-core.php';
+require_once 'class-sync-pinboard-core.php';
 require_once 'vendor/autoload.php';
 
 /**
