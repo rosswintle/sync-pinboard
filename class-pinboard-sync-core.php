@@ -22,7 +22,7 @@ class Sync_Pinboard_Core {
 	public function __construct() {
 		$stored_last_sync = get_option( 'sync-pinboard-last-sync' );
 
-		$this->last_sync = ( false !== $stored_last_sync ) ? $stored_last_sync : time();
+		$this->last_sync = ( false !== $stored_last_sync ) ? $stored_last_sync : 0;
 	}
 
 	public function sync() {
