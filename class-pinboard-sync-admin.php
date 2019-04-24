@@ -51,7 +51,7 @@ class Pinboard_Sync_Admin {
 								<label for="api-key">Pinboard API Key</label>
 							</th>
 							<td>
-								<input type="text" class="regular-text" name="api-key" id="api-key" value="<?php echo $api_key ? esc_attr( $api_key ) : ''; ?>">
+								<input type="text" class="regular-text" name="api-key" id="api-key" value="<?php echo esc_attr($api_key ? esc_attr( $api_key ) : ''); ?>">
 								<p class="description" id="tagline-description">You can get this from your <a href="https://pinboard.in/settings/password">Pinboard password settings screen</a></p>
 							</td>
 						</tr>
@@ -114,15 +114,28 @@ class Pinboard_Sync_Admin {
 
 		check_admin_referer( 'pinboard-sync-settings' );
 
-		if ( isset( $_POST['api-key'] ) ) {
+		// To validate the API key is username:key
+		// According to Pinboard: "username can only contain letters, numbers, hyphen, dot, or underscore"
+		if (
+			isset( $_POST['api-key'] )
+			&& 1 === preg_match('/[a-zA-Z0-9\-\._]+:[A-Z0-9]+/', $_POST['api-key'])
+		) {
 			Pinboard_Sync_Options::set_api_key( $_POST['api-key'] );
 		}
 
-		if ( isset( $_POST['pin-author'] ) ) {
+		if (
+			isset( $_POST['pin-author'] )
+			&& is_numeric( $_POST['pin-author'] )
+			&& is_a( get_user_by( 'ID', $_POST['pin-author'] ), 'WP_User' )
+		) {
 			Pinboard_Sync_Options::set_pin_author( $_POST['pin-author'] );
 		}
 
-		if ( isset( $_POST['pin-sync-status'] ) ) {
+		if (
+			isset( $_POST['pin-sync-status'] )
+			&& is_numeric( $_POST['pin-sync-status'] )
+			&& ( 1 === (int)$_POST['pin-sync-status'] || 0 === (int)$_POST['pin-sync-status'] )
+		) {
 			Pinboard_Sync_Options::set_pin_sync_status( $_POST['pin-sync-status'] );
 		}
 	}
