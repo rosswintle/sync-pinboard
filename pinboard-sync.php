@@ -72,7 +72,7 @@ class Sync_Pinboard {
 	}
 
 	/**
-	 * This actually does the pinboard_sync_deactivate hook
+	 * This actually does the sync_pinboard_deactivate hook
 	 */
 	public function run_deactivation_hook() {
 		do_action('sync_pinboard_deactivate');

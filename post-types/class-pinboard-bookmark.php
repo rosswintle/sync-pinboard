@@ -1,6 +1,6 @@
 <?php
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
 class Pinboard_Bookmark {
 

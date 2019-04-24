@@ -2,7 +2,7 @@
 /**
  * Pinboard API class
  *
- * @package PinboardSync
+ * @package SyncPinboard
  */
 
 namespace SyncPinboard;
