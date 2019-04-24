@@ -3,18 +3,18 @@
  * The wp-admin side of the settings/options
  */
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
-use PinboardSync\Pinboard_Sync_Options;
-use PinboardSync\Pinboard_Sync_Cron;
+use SyncPinboard\Sync_Pinboard_Options;
+use SyncPinboard\Sync_Pinboard_Cron;
 
-class Pinboard_Sync_Admin {
+class Sync_Pinboard_Admin {
 
 	/**
 	 * Constructor - setup all the things!
 	 */
 	public function __construct() {
-		add_submenu_page( 'options-general.php', 'Pinboard Sync Settings', 'Pinboard Sync', 'manage_options', 'pinboard-sync', [ $this, 'page' ] );
+		add_submenu_page( 'options-general.php', 'Sync Pinboard Settings', 'Sync Pinboard', 'manage_options', 'sync-pinboard', [ $this, 'page' ] );
 	}
 
 	/**
@@ -29,12 +29,12 @@ class Pinboard_Sync_Admin {
 
 		$this->handle_submission();
 
-		$api_key         = Pinboard_Sync_Options::get_api_key();
-		$pin_author      = Pinboard_Sync_Options::get_pin_author();
-		$pin_sync_status = Pinboard_Sync_Options::get_pin_sync_status();
+		$api_key         = Sync_Pinboard_Options::get_api_key();
+		$pin_author      = Sync_Pinboard_Options::get_pin_author();
+		$pin_sync_status = Sync_Pinboard_Options::get_pin_sync_status();
 
 		?>
-			<h1>Pinboard Sync Settings</h1>
+			<h1>Sync Pinboard Settings</h1>
 
 			<hr>
 
@@ -43,7 +43,7 @@ class Pinboard_Sync_Admin {
 			<hr>
 
 			<form method="POST">
-				<?php wp_nonce_field( 'pinboard-sync-settings' ); ?>
+				<?php wp_nonce_field( 'sync-pinboard-settings' ); ?>
 				<table class="form-table">
 					<tbody>
 						<tr>
@@ -88,7 +88,7 @@ class Pinboard_Sync_Admin {
 								</p>
 								<?php if (1 == $pin_sync_status) : ?>
 									<p class="description" id="tagline-description">
-										Next sync: <?php echo (new Pinboard_Sync_Cron())->next_sync_time(); ?>
+										Next sync: <?php echo (new Sync_Pinboard_Cron())->next_sync_time(); ?>
 									</p>
 								<?php endif; ?>
 							</td>
@@ -112,7 +112,7 @@ class Pinboard_Sync_Admin {
 			return;
 		}
 
-		check_admin_referer( 'pinboard-sync-settings' );
+		check_admin_referer( 'sync-pinboard-settings' );
 
 		// To validate the API key is username:key
 		// According to Pinboard: "username can only contain letters, numbers, hyphen, dot, or underscore"
@@ -120,7 +120,7 @@ class Pinboard_Sync_Admin {
 			isset( $_POST['api-key'] )
 			&& 1 === preg_match('/[a-zA-Z0-9\-\._]+:[A-Z0-9]+/', $_POST['api-key'])
 		) {
-			Pinboard_Sync_Options::set_api_key( $_POST['api-key'] );
+			Sync_Pinboard_Options::set_api_key( $_POST['api-key'] );
 		}
 
 		if (
@@ -128,7 +128,7 @@ class Pinboard_Sync_Admin {
 			&& is_numeric( $_POST['pin-author'] )
 			&& is_a( get_user_by( 'ID', $_POST['pin-author'] ), 'WP_User' )
 		) {
-			Pinboard_Sync_Options::set_pin_author( $_POST['pin-author'] );
+			Sync_Pinboard_Options::set_pin_author( $_POST['pin-author'] );
 		}
 
 		if (
@@ -136,7 +136,7 @@ class Pinboard_Sync_Admin {
 			&& is_numeric( $_POST['pin-sync-status'] )
 			&& ( 1 === (int)$_POST['pin-sync-status'] || 0 === (int)$_POST['pin-sync-status'] )
 		) {
-			Pinboard_Sync_Options::set_pin_sync_status( $_POST['pin-sync-status'] );
+			Sync_Pinboard_Options::set_pin_sync_status( $_POST['pin-sync-status'] );
 		}
 	}
 

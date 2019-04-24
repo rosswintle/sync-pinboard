@@ -3,15 +3,15 @@
  * Core code for syncing Pinboard pins to WordPress posts
  */
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
-use PinboardSync\Pinboard_API;
-use PinboardSync\Pinboard_Sync_Options;
+use SyncPinboard\Pinboard_API;
+use SyncPinboard\Sync_Pinboard_Options;
 
 /**
  * Core class for syncing
  */
-class Pinboard_Sync_Core {
+class Sync_Pinboard_Core {
 
 	// Time of last "recent" method call - this can only be called every minute
 	//protected $last_recent_call = null;
@@ -20,7 +20,7 @@ class Pinboard_Sync_Core {
 	protected $last_sync = null;
 
 	public function __construct() {
-		$stored_last_sync = get_option( 'pinboard-sync-last-sync' );
+		$stored_last_sync = get_option( 'sync-pinboard-last-sync' );
 
 		$this->last_sync = ( false !== $stored_last_sync ) ? $stored_last_sync : time();
 	}
@@ -53,14 +53,14 @@ class Pinboard_Sync_Core {
 		}
 
 		// Get the author ID to use.
-		$author_id = Pinboard_Sync_Options::get_pin_author();
+		$author_id = Sync_Pinboard_Options::get_pin_author();
 
 		// Loop through pins creating posts for them.
 		foreach ( $new_pins as $pin ) {
 
 			$post_data = [
 				'post_type'    => 'pinboard-bookmark',
-				'post_date'    => date( 'Y-m-d H:i:s', Pinboard_Sync::make_time_local( strtotime($pin->time) ) ),
+				'post_date'    => date( 'Y-m-d H:i:s', Sync_Pinboard::make_time_local( strtotime($pin->time) ) ),
 				'post_title'   => $pin->description,
 				'post_content' => $pin->extended,
 				'post_status'  => 'yes' === $pin->shared ? 'publish' : 'private',
@@ -87,7 +87,7 @@ class Pinboard_Sync_Core {
 
 		// Update last sync time
 		$this->last_sync = time();
-		update_option( 'pinboard-sync-last-sync',  $this->last_sync );
+		update_option( 'sync-pinboard-last-sync',  $this->last_sync );
 
 	}
 

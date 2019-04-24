@@ -3,7 +3,7 @@ Contributors: magicroundabout
 Tags: pinboard, sync, bookmarks
 Requires at least: 5.1
 Tested up to: 5.1.1
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,17 +35,24 @@ If you want to do automatic sync then you can then also turn on the Auto-sync op
 
 If you have a lot of pins in Pinboard then it is not recommended that you turn on auto-sync right away as this will probably time out or do bad things.
 
-If you are able then the recommended method for doing a large initial import is to use the bundled wp-cli command: `wp-cli pinboard-sync` - this will be available soon in a future version of the plugin.
+If you are able then the recommended method for doing a large initial import is to use the bundled wp-cli command: `wp-cli sync-pinboard`
+
+= WP-CLI command =
+
+If you can use [WP-CLI](https://wp-cli.org/) then you can make use of the `wp-cli sync-pinboard` command to
+do an import from Pinboard. This works particularly well for large first-time imports before you enable the automatic sync. But you could also use the system cron to run this command instead of WP cron.
 
 = Wish list / Roadmap =
 
 Things I have in mind for future development:
 
-* Create WP-CLI sync command
 * A shortcode for outputting lists of pins
 * Ability to only import a specified tag
 * A Gutenberg block for displaying pins
+* Option in wp-cli command to allow re-import of all pins
+* Better front-end validation in admin screens and meta boxes
 * Better error logging, and logging in general, including WP-CLI-specific output
+* Better intial automated sync (over multiple cron runs)
 
 == Installation ==
 

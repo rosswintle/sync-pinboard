@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'pinboard-sync',
+				textdomain: 'sync-pinboard',
 			},
 			update_all_domains: {
 				options: {
@@ -32,8 +32,8 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/languages',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
-					mainFile: 'pinboard-sync.php',
-					potFilename: 'pinboard-sync.pot',
+					mainFile: 'sync-pinboard.php',
+					potFilename: 'sync-pinboard.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true

@@ -1,12 +1,12 @@
 <?php
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
-class Pinboard_Sync_WPCLI {
+class Sync_Pinboard_WPCLI {
 
 	public function __construct() {
 		if (class_exists('WP_CLI')) {
-			\WP_CLI::add_command( 'pinboard-sync', [ $this, 'sync' ] );
+			\WP_CLI::add_command( 'sync-pinboard', [ $this, 'sync' ] );
 		}
 	}
 
@@ -19,18 +19,18 @@ class Pinboard_Sync_WPCLI {
      *
      * ## EXAMPLES
      *
-     *     wp pinboard-sync
+     *     wp sync-pinboard
      *
      * @when after_wp_load
      */
 	public function sync( $args, $assoc_args ) {
 		\WP_CLI::log('Starting sync');
 
-		$last_sync = get_option( 'pinboard-sync-last-sync' );
+		$last_sync = get_option( 'sync-pinboard-last-sync' );
 		if (false === $last_sync) {
 			\WP_CLI::log('This is the first sync. If you have a lot of bookmarks then this may take some time.');
 		} else {
-			\WP_CLI::log('Last sync was: ' . date('jS F Y H:i:s', Pinboard_Sync::make_time_local($last_sync)));
+			\WP_CLI::log('Last sync was: ' . date('jS F Y H:i:s', Sync_Pinboard::make_time_local($last_sync)));
 		}
 
 		$suspended = get_transient( 'pinboard-posts-all-suspended' );
@@ -39,7 +39,7 @@ class Pinboard_Sync_WPCLI {
 			exit;
 		}
 
-    	$core = new Pinboard_Sync_Core();
+    	$core = new Sync_Pinboard_Core();
     	$core->sync();
 
     	\WP_CLI::log('Sync finished');

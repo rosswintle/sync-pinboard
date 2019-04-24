@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name:     Pinboard Sync
- * Description:     Fetch bookmarks from Pinboard into a custom post type and custom taxonomy
+ * Plugin Name:     Sync Pinboard
+ * Description:     Fetch bookmarks from pinboard.in into a custom post type and custom taxonomy
  * Author:          Ross Wintle
  * Author URI:      https://rosswintle.uk
- * Text Domain:     pinboard-sync
+ * Text Domain:     sync-pinboard
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.2.0
  *
- * @package         Pinboard_Sync
+ * @package         Sync_Pinboard
  */
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
 require_once 'post-types/pinboard-bookmark.php';
 require_once 'post-types/class-pinboard-bookmark.php';
@@ -26,9 +26,9 @@ require_once 'class-pinboard-sync-core.php';
 require_once 'vendor/autoload.php';
 
 /**
- * Pinboard Sync class
+ * Sync Pinboard class
  */
-class Pinboard_Sync {
+class Sync_Pinboard {
 
 	/**
 	 * Constructor
@@ -47,9 +47,9 @@ class Pinboard_Sync {
 	 * @return void
 	 */
 	public function init_hooks() {
-		new Pinboard_Sync_Cron();
-		new Pinboard_Sync_Meta_Boxes();
-		new Pinboard_Sync_WPCLI();
+		new Sync_Pinboard_Cron();
+		new Sync_Pinboard_Meta_Boxes();
+		new Sync_Pinboard_WPCLI();
 	}
 
 	/**
@@ -58,11 +58,11 @@ class Pinboard_Sync {
 	 * @return void
 	 */
 	public function admin_menu_hooks() {
-		new Pinboard_Sync_Admin();
+		new Sync_Pinboard_Admin();
 	}
 
 	/**
-	 * Register a deactivation hook - this will trigger the pinboard_sync_deactivate action
+	 * Register a deactivation hook - this will trigger the sync_pinboard_deactivate action
 	 * so anything that needs to be done on deactivation should be done using that hook.
 	 *
 	 * @return void
@@ -75,18 +75,17 @@ class Pinboard_Sync {
 	 * This actually does the pinboard_sync_deactivate hook
 	 */
 	public function run_deactivation_hook() {
-		do_action('pinboard_sync_deactivate');
+		do_action('sync_pinboard_deactivate');
 	}
 
 	/**
 	 * This takes a timestamp and turns it into local time using the gmt_offset options
 	 */
 	public static function make_time_local( $timestamp ) {
-		echo "Making local time from " . $timestamp;
 		$offset_secs = ((int)get_option('gmt_offset')) * 60 * 60;
 		return $timestamp + $offset_secs;
 	}
 
 }
 
-$pbsync_instance = new Pinboard_Sync();
+$syncpb_instance = new Sync_Pinboard();

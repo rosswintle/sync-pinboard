@@ -1,6 +1,6 @@
 
 {
-  "name": "pinboard-sync",
+  "name": "sync-pinboard",
   "version": "0.1.0",
   "main": "Gruntfile.js",
   "author": "Ross Wintle",

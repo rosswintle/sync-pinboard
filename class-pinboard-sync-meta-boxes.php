@@ -1,8 +1,8 @@
 <?php
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
-class Pinboard_Sync_Meta_Boxes {
+class Sync_Pinboard_Meta_Boxes {
 
 	public function __construct() {
 
@@ -13,24 +13,24 @@ class Pinboard_Sync_Meta_Boxes {
 	}
 
 	public function add_meta_boxes() {
-		add_meta_box( 'pinboard-sync-details', 'Pin details', [ $this, 'meta_box' ], 'pinboard-bookmark', 'normal', 'default' );
+		add_meta_box( 'sync-pinboard-details', 'Pin details', [ $this, 'meta_box' ], 'pinboard-bookmark', 'normal', 'default' );
 	}
 
 	public function meta_box( $post ) {
-		wp_nonce_field( basename( __FILE__ ), 'pinboard-sync-meta-nonce' );
+		wp_nonce_field( basename( __FILE__ ), 'sync-pinboard-meta-nonce' );
 		?>
 
 		<p>
-			<label for="pinboard-sync-url">URL</label>
+			<label for="sync-pinboard-url">URL</label>
 			<br />
-			<input class="widefat" type="url" name="pinboard-sync-url" id="pinboard-sync-url" value="<?php echo esc_attr( get_post_meta( $post->ID, 'url', true ) ); ?>" size="80" />
+			<input class="widefat" type="url" name="sync-pinboard-url" id="sync-pinboard-url" value="<?php echo esc_attr( get_post_meta( $post->ID, 'url', true ) ); ?>" size="80" />
 		</p>
 		<?php
 	}
 
 	public function save( $post_id, $post ) {
 		/* Verify the nonce before proceeding. */
-		if ( ! isset( $_POST['pinboard-sync-meta-nonce'] ) || ! wp_verify_nonce( $_POST['pinboard-sync-meta-nonce'], basename( __FILE__ ) ) ) {
+		if ( ! isset( $_POST['sync-pinboard-meta-nonce'] ) || ! wp_verify_nonce( $_POST['sync-pinboard-meta-nonce'], basename( __FILE__ ) ) ) {
 			return $post_id;
 		}
 
@@ -48,7 +48,7 @@ class Pinboard_Sync_Meta_Boxes {
 		}
 
 		/* Get the posted data and sanitize it for use as an HTML class. */
-		$new_meta_value = ( isset( $_POST['pinboard-sync-url'] ) ? esc_url_raw( $_POST['pinboard-sync-url'] ) : '' );
+		$new_meta_value = ( isset( $_POST['sync-pinboard-url'] ) ? esc_url_raw( $_POST['sync-pinboard-url'] ) : '' );
 
 		if ( empty( $new_meta_value ) ) {
 			delete_post_meta( $post_id, 'url' );

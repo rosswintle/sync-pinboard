@@ -1,5 +1,5 @@
 {
-    "name": "rosswintle/pinboard-sync",
+    "name": "rosswintle/sync-pinboard",
     "description": "WordPress plugin to sync pins from Pinboard.in",
     "type": "project",
     "require": {

@@ -5,7 +5,7 @@
  * @package PinboardSync
  */
 
-namespace PinboardSync;
+namespace SyncPinboard;
 
 use GuzzleHttp\Client;
 
@@ -22,7 +22,7 @@ class Pinboard_API {
 	 * @return array|null
 	 */
 	public function call( $method, $options = [] ) {
-		$key = Pinboard_Sync_Options::get_api_key();
+		$key = Sync_Pinboard_Options::get_api_key();
 
 		if (! $key) {
 			return null;
