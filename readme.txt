@@ -1,4 +1,4 @@
-=== Pinboard Sync ===
+=== Sync Pinboard ===
 Contributors: magicroundabout
 Tags: pinboard, sync, bookmarks
 Requires at least: 5.1
