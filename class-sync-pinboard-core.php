@@ -28,10 +28,12 @@ class Sync_Pinboard_Core {
 	public function sync() {
 		$api = new Pinboard_API();
 
+		Sync_Pinboard::log( 'Getting last update time' );
+
 		$last_update_data = $api->call( 'posts/update' );
 
 		if ( ! $last_update_data ) {
-			// Log something?
+			Sync_Pinboard::error( 'Couldn\'t get last update time' );
 			exit;
 		}
 
@@ -39,7 +41,7 @@ class Sync_Pinboard_Core {
 
 		// Compare last update time to last sync to see if anything is new.
 		if ( strtotime( $last_update_time ) < $this->last_sync ) {
-			echo 'Nothing new to sync';
+			Sync_Pinboard::log( 'Nothing new to sync' );
 			return;
 		}
 
@@ -49,14 +51,19 @@ class Sync_Pinboard_Core {
 		$new_pins = $api->posts_all( [ 'fromdt' => date( 'Y-m-d\TH:i:s\Z', $this->last_sync ) ] );
 
 		if ( ! is_array( $new_pins ) ) {
+			Sync_Pinboard::error( 'Tried sync, but no new pins were retrieved' );
 			return;
 		}
+
+		Sync_Pinboard::log( 'Retrieved ' . count($new_pins) . ' from Pinboard' );
 
 		// Get the author ID to use.
 		$author_id = Sync_Pinboard_Options::get_pin_author();
 
 		// Loop through pins creating posts for them.
 		foreach ( $new_pins as $pin ) {
+
+			Sync_Pinboard::log( 'Syncing pin: ' . $pin->description );
 
 			$post_data = [
 				'post_type'    => 'pinboard-bookmark',
@@ -74,6 +81,7 @@ class Sync_Pinboard_Core {
 			$existing_pin = Pinboard_Bookmark::with_hash( $pin->hash );
 			if ( $existing_pin ) {
 				$post_data['ID'] = $existing_pin->ID;
+				Sync_Pinboard::log( 'Existing pin with ID ' . $existing_pin->ID . ' found. Will update.' );
 			}
 
 			$result = wp_insert_post( $post_data );

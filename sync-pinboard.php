@@ -86,6 +86,25 @@ class Sync_Pinboard {
 		return $timestamp + $offset_secs;
 	}
 
+	/**
+	 * This does information logging based on how the sync has been called
+	 */
+	public static function log( $message ) {
+		if (class_exists('WP_CLI')) {
+			\WP_CLI::log( $message );
+		}
+		return;
+	}
+
+	/**
+	 * This does error logging based on how the sync has been called
+	 */
+	public static function error( $message ) {
+		if (class_exists('WP_CLI')) {
+			\WP_CLI::error( $message );
+		}
+	}
+
 }
 
 $syncpb_instance = new Sync_Pinboard();
