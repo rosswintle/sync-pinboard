@@ -15,7 +15,7 @@ class Pinboard_Bookmark {
 			],
 		]);
 		if (is_array($posts)) {
-			return $posts[0];
+			return current($posts);
 		} else {
 			return null;
 		}
