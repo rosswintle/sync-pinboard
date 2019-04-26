@@ -6,7 +6,7 @@
  * Author URI:      https://rosswintle.uk
  * Text Domain:     sync-pinboard
  * Domain Path:     /languages
- * Version:         0.2.0
+ * Version:         0.2.1
  *
  * @package         Sync_Pinboard
  */

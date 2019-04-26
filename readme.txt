@@ -3,7 +3,7 @@ Contributors: magicroundabout
 Tags: pinboard, sync, bookmarks
 Requires at least: 5.1
 Tested up to: 5.1.1
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,9 @@ Once you have installed and activated the plugin, follow the instructions in the
 * Fix error in initial sync (this was failing safely - the sync just wasn't working)
 * Start adding some improved logging
 * Fix some warnings that were showing on sync
+
+= 0.2.1 =
+* Fix ridiculous fatal error from initial commit - my mistake!
 
 == Upgrade Notice ==
 
