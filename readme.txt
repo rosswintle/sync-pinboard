@@ -68,6 +68,16 @@ Once you have installed and activated the plugin, follow the instructions in the
 = 0.1.0 =
 * Initial version for release
 
+= 0.2.0 =
+* Renamed from pinboard-sync to sync-pinboard to comply with plugin repo trademark rules
+* Added WP-CLI command for sync
+* Use the correct timezone when creating pins
+* Add notices about support
+* Improve validation of settings inputs
+* Fix error in initial sync (this was failing safely - the sync just wasn't working)
+* Start adding some improved logging
+* Fix some warnings that were showing on sync
+
 == Upgrade Notice ==
 
 = 0.1.0 =
