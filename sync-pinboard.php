@@ -23,6 +23,7 @@ require_once 'class-sync-pinboard-cron.php';
 require_once 'class-sync-pinboard-wp-cli.php';
 require_once 'class-pinboard-api.php';
 require_once 'class-sync-pinboard-core.php';
+require_once 'blocks/pins/pins.php';
 require_once 'vendor/autoload.php';
 
 /**
@@ -50,6 +51,7 @@ class Sync_Pinboard {
 		new Sync_Pinboard_Cron();
 		new Sync_Pinboard_Meta_Boxes();
 		new Sync_Pinboard_WPCLI();
+		new Blocks\Pins();
 	}
 
 	/**
