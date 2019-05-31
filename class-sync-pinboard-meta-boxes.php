@@ -10,6 +10,25 @@ class Sync_Pinboard_Meta_Boxes {
 
 		/* Save post meta on the 'save_post' hook. */
 		add_action( 'save_post', [ $this, 'save' ], 10, 2 );
+
+		register_meta( 'post', 'url', [
+		    //'object_subtype' => 'pinboard-bookmark',
+		    'type' => 'string',
+    		'description' => 'The URL of the pin',
+    		'single' => true,
+    		'show_in_rest' => true,
+    	]);
+
+		register_rest_field('pinboard-bookmark', 'content_raw', [
+			'get_callback' => function ($post_array) {
+				return $post_array['content']['raw'];
+			},
+    		'schema' => [
+    			'description' => 'The raw content',
+    			'type'        => 'string',
+    			],
+    	]);
+
 	}
 
 	public function add_meta_boxes() {

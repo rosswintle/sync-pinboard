@@ -15,13 +15,17 @@ function createSyncPinboardList(props) {
 				null,
 				el(
 					'a',
-					//{ href: ''},
+					{ href: (item.meta ? item.meta.url : '') },
 					null,
 					item.title.rendered),
 				el(
 					'span',
 					null,
-					' - ' + item.content.rendered)
+					' - '),
+				el(
+					'span',
+					null,
+					item.content_raw)
 				));
 	});
 
