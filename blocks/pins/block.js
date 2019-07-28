@@ -9,15 +9,20 @@ function createSyncPinboardList(props) {
 	const listItems = [];
 
 	pins.forEach( function(item, index) {
+		console.dir(item.title);
 		listItems.push(
 			el(
 				'li',
 				null,
 				el(
 					'a',
-					{ href: (item.meta ? item.meta.url : '') },
+					{
+						href: (item.meta ? item.meta.url : ''),
+						dangerouslySetInnerHTML: {
+							__html: item.title.rendered
+						} },
 					null,
-					item.title.rendered),
+					),
 				el(
 					'span',
 					null,
@@ -47,73 +52,71 @@ async function fetchPins (startDate, endDate, props) {
 
 
 const blockStyle = {
-    backgroundColor: '#900',
-    color: '#fff',
-    padding: '20px',
+	// No custom styles
 };
 
 registerBlockType( 'sync-pinboard/pins', {
-    title: 'Pins',
-    icon: 'post-status',
-    category: 'common',
-    attributes: {
+	title: 'Pins',
+	icon: 'post-status',
+	category: 'common',
+	attributes: {
 		startDate: {
-    		type: 'string',
-    		default: moment().format('YYYY-MM-DDTHH:mm:ss')
-    	},
-    	endDate: {
-    		type: 'string',
-    		default: moment().format('YYYY-MM-DDTHH:mm:ss')
-    	},
-    	pinJson: {
-    		type: 'array',
-    		default: [],
-    	}
-    },
-    edit: function( props ) {
-    	let startDate = props.attributes.startDate;
-    	let endDate = props.attributes.endDate;
+			type: 'string',
+			default: moment().format('YYYY-MM-DDTHH:mm:ss')
+		},
+		endDate: {
+			type: 'string',
+			default: moment().format('YYYY-MM-DDTHH:mm:ss')
+		},
+		pinJson: {
+			type: 'array',
+			default: [],
+		}
+	},
+	edit: function( props ) {
+		let startDate = props.attributes.startDate;
+		let endDate = props.attributes.endDate;
 
-    	return [
-    	el(
-    		Fragment,
-    		null,
-    		el(
-    			InspectorControls,
-    			null,
-    			el(
-    				TimePicker,
-    				{
-    					label: 'Start date/time',
-    					currentTime: startDate,
-    					onChange: function (timestamp) {
-    						props.setAttributes({ startDate: timestamp });
-    						fetchPins(props.attributes.startDate, props.attributes.endDate, props);
-    					}
-    				}
-    				),
-    			el(
-    				TimePicker,
-    				{
-    					label: 'End date/time',
-    					currentTime: endDate,
-    					onChange: function (timestamp) {
-    						props.setAttributes({ endDate: timestamp });
-    						fetchPins(props.attributes.startDate, props.attributes.endDate, props);
-    					}
-    				}
-    				)
-    			)
-    		),
-    	createSyncPinboardList(props)
-    	];
-    },
-    save: function( props ) {
-    	const list = createSyncPinboardList(props);
-    	return el(
-    		'div',
-    		{ style: blockStyle },
-	    	list
-	    );
-    },
+		return [
+		el(
+			Fragment,
+			null,
+			el(
+				InspectorControls,
+				null,
+				el(
+					TimePicker,
+					{
+						label: 'Start date/time',
+						currentTime: startDate,
+						onChange: function (timestamp) {
+							props.setAttributes({ startDate: timestamp });
+							fetchPins(props.attributes.startDate, props.attributes.endDate, props);
+						}
+					}
+					),
+				el(
+					TimePicker,
+					{
+						label: 'End date/time',
+						currentTime: endDate,
+						onChange: function (timestamp) {
+							props.setAttributes({ endDate: timestamp });
+							fetchPins(props.attributes.startDate, props.attributes.endDate, props);
+						}
+					}
+					)
+				)
+			),
+		createSyncPinboardList(props)
+		];
+	},
+	save: function( props ) {
+		const list = createSyncPinboardList(props);
+		return el(
+			'div',
+			{ style: blockStyle },
+			list
+		);
+	},
 } );
