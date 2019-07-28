@@ -65,8 +65,8 @@ Once you have installed and activated the plugin, follow the instructions in the
 
 == Changelog ==
 
-= 0.1.0 =
-* Initial version for release
+= 0.2.1 =
+* Fix ridiculous fatal error from initial commit - my mistake!
 
 = 0.2.0 =
 * Renamed from pinboard-sync to sync-pinboard to comply with plugin repo trademark rules
@@ -78,8 +78,8 @@ Once you have installed and activated the plugin, follow the instructions in the
 * Start adding some improved logging
 * Fix some warnings that were showing on sync
 
-= 0.2.1 =
-* Fix ridiculous fatal error from initial commit - my mistake!
+= 0.1.0 =
+* Initial version for release
 
 == Upgrade Notice ==
 
