@@ -4,7 +4,7 @@
  * Registers the `pinboard_bookmark` post type.
  */
 function pinboard_bookmark_init() {
-	register_post_type( 'pinboard-bookmark', array(
+	$pinboard_bookmark_post_type_options = array(
 		'labels'                => array(
 			'name'                  => __( 'Pins', 'sync-pinboard' ),
 			'singular_name'         => __( 'Pin', 'sync-pinboard' ),
@@ -39,13 +39,18 @@ function pinboard_bookmark_init() {
 		'supports'              => array( 'title', 'editor', 'author' ),
 		'has_archive'           => true,
 		'rewrite'               => true,
+		'exclude_from_search'   => true,
 		'query_var'             => true,
 		'menu_position'         => null,
 		'menu_icon'             => 'dashicons-pressthis',
 		'show_in_rest'          => true,
 		'rest_base'             => 'pinboard-bookmark',
 		'rest_controller_class' => 'WP_REST_Posts_Controller',
-	) );
+	);
+
+	$pinboard_bookmark_post_type_options = apply_filters('sync-pinboard-bookmark-post-type-options', $pinboard_bookmark_post_type_options);
+
+	register_post_type( 'pinboard-bookmark', $pinboard_bookmark_post_type_options );
 
 }
 add_action( 'init', 'pinboard_bookmark_init' );
