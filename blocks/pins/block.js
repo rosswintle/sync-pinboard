@@ -96,7 +96,7 @@ registerBlockType( 'sync-pinboard/pins', {
 							BaseControl,
 							{
 								id: 'start-date',
-								label: 'Start date',
+								label: 'Start Date',
 								help: 'When do you want your list of pins to start?'
 							},
 							el (
