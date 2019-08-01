@@ -2,8 +2,8 @@
 Contributors: magicroundabout
 Tags: pinboard, sync, bookmarks
 Requires at least: 5.1
-Tested up to: 5.1.1
-Stable tag: 0.2.1
+Tested up to: 5.2.2
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,9 +22,9 @@ This plugin:
 * obeys the API's rate limits
 * allows you to choose an author for synced pins
 * updates pins in pinboard that have been updated (I think!) but will not remove pins that have been deleted
+* provides a Gutenberg/block editor block for display a list of pins created between two specified dates
 
-Note that this is a one-way sync from Pinboard to your WordPress install. You can add your own bookmarks in WordPress
-but they will not be added to Pinboard.
+Note that this plugin does a one-way sync from Pinboard to your WordPress install. You can add your own bookmarks in WordPress but they will not be added to Pinboard.
 
 = Instructions =
 
@@ -48,7 +48,7 @@ Things I have in mind for future development:
 
 * A shortcode for outputting lists of pins
 * Ability to only import a specified tag
-* A Gutenberg block for displaying pins
+* (DONE) A Gutenberg block for displaying pins
 * Option in wp-cli command to allow re-import of all pins
 * Better front-end validation in admin screens and meta boxes
 * Better error logging, and logging in general, including WP-CLI-specific output
@@ -64,6 +64,11 @@ Once you have installed and activated the plugin, follow the instructions in the
 2. List of sync'ed pins
 
 == Changelog ==
+
+= 1.0 =
+* Add Gutenberg/block editor block for displaying pins
+* Prevent the pins from appearing in WordPress search by default
+* Allow post type options to be filtered so that you can add searching back in
 
 = 0.2.1 =
 * Fix ridiculous fatal error from initial commit - my mistake!
@@ -82,6 +87,9 @@ Once you have installed and activated the plugin, follow the instructions in the
 * Initial version for release
 
 == Upgrade Notice ==
+
+= 1.0 =
+Note that this update removes pins from WordPress search by default
 
 = 0.1.0 =
 You should install this, it's great!
