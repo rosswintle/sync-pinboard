@@ -36,7 +36,7 @@ function pinboard_bookmark_init() {
 		'hierarchical'          => false,
 		'show_ui'               => true,
 		'show_in_nav_menus'     => true,
-		'supports'              => array( 'title', 'editor', 'author' ),
+		'supports'              => array( 'title', 'editor', 'author', 'custom-fields', 'excerpt' ),
 		'has_archive'           => true,
 		'rewrite'               => true,
 		'exclude_from_search'   => true,
