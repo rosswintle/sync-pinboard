@@ -2,7 +2,12 @@ const { registerBlockType } = wp.blocks;
 const el = wp.element.createElement;
 const Fragment = wp.element.Fragment;
 const InspectorControls = wp.editor.InspectorControls;
-const TimePicker = wp.components.TimePicker;
+const {
+	BaseControl,
+	TimePicker,
+	PanelBody,
+	PanelRow
+} = wp.components;
 
 function createSyncPinboardList(props) {
 	const pins = props.attributes.pinJson;
@@ -78,37 +83,60 @@ registerBlockType( 'sync-pinboard/pins', {
 		let endDate = props.attributes.endDate;
 
 		return [
-		el(
-			Fragment,
-			null,
 			el(
 				InspectorControls,
 				null,
 				el(
-					TimePicker,
-					{
-						label: 'Start date/time',
-						currentTime: startDate,
-						onChange: function (timestamp) {
-							props.setAttributes({ startDate: timestamp });
-							fetchPins(props.attributes.startDate, props.attributes.endDate, props);
-						}
-					}
+					PanelBody,
+					{ title: 'Date range' },
+					el (
+						PanelRow,
+						null,
+						el (
+							BaseControl,
+							{
+								id: 'start-date',
+								label: 'Start date',
+								help: 'When do you want your list of pins to start?'
+							},
+							el (
+								TimePicker,
+								{
+									currentTime: startDate,
+									onChange: function (timestamp) {
+										props.setAttributes({ startDate: timestamp });
+										fetchPins(props.attributes.startDate, props.attributes.endDate, props);
+									}
+								}
+							)
+						)
 					),
-				el(
-					TimePicker,
-					{
-						label: 'End date/time',
-						currentTime: endDate,
-						onChange: function (timestamp) {
-							props.setAttributes({ endDate: timestamp });
-							fetchPins(props.attributes.startDate, props.attributes.endDate, props);
-						}
-					}
+					el (
+						PanelRow,
+						null,
+						el (
+							BaseControl,
+							{
+								id: 'end-date',
+								label: 'End Date',
+								help: 'When do you want your list of pins to end?'
+
+							},
+							el(
+								TimePicker,
+								{
+									currentTime: endDate,
+									onChange: function (timestamp) {
+										props.setAttributes({ endDate: timestamp });
+										fetchPins(props.attributes.startDate, props.attributes.endDate, props);
+									}
+								}
+							)
+						)
 					)
 				)
 			),
-		createSyncPinboardList(props)
+			createSyncPinboardList(props)
 		];
 	},
 	save: function( props ) {
