@@ -14,7 +14,6 @@ function createSyncPinboardList(props) {
 	const listItems = [];
 
 	pins.forEach( function(item, index) {
-		console.dir(item.title);
 		listItems.push(
 			el(
 				'li',
@@ -51,7 +50,6 @@ async function fetchPins (startDate, endDate, props) {
 	// TODO: localise this
 	let response = await fetch(`/wp-json/wp/v2/pinboard-bookmark/?after=${startDate}&before=${endDate}&per_page=100`);
 	let apiJson = await response.json();
-	console.log(apiJson);
 	props.setAttributes({ pinJson: apiJson });
 }
 

@@ -3,7 +3,7 @@ Contributors: magicroundabout
 Tags: pinboard, sync, bookmarks
 Requires at least: 5.1
 Tested up to: 5.2.2
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,9 @@ Once you have installed and activated the plugin, follow the instructions in the
 2. List of sync'ed pins
 
 == Changelog ==
+
+= 1.0.1 =
+* Remove console debug logging
 
 = 1.0 =
 * Add Gutenberg/block editor block for displaying pins
