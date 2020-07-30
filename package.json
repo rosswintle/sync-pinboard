@@ -5,7 +5,7 @@
   "author": "Ross Wintle",
   "devDependencies": {
     "eslint": "^6.8",
-    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react": "^7.20.5",
     "grunt": "~1.1.0",
     "grunt-wp-i18n": "~1.0.3",
     "grunt-wp-readme-to-markdown": "~1.0.0"
