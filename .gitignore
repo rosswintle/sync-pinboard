@@ -7,3 +7,8 @@ node_modules/
 *.sql
 *.tar.gz
 *.zip
+vendor/bin
+vendor/phpstan
+vendor/php-stubs
+vendor/szepeviktor
+
