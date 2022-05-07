@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b82587aae689107baa50344f937578dfed3626ac',
+        'reference' => 'd6385e27c3f6b399a25386f62a513006971a962e',
         'name' => 'rosswintle/sync-pinboard',
         'dev' => true,
     ),
@@ -67,7 +67,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b82587aae689107baa50344f937578dfed3626ac',
+            'reference' => 'd6385e27c3f6b399a25386f62a513006971a962e',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-idn' => array(
